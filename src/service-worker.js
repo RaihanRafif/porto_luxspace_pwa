@@ -70,7 +70,36 @@ registerRoute((url) => url.origin === 'http://fonts.googleapis.com' || url.origi
         maxEntries: 30
       })
     ]
-  }))
+  })
+)
+
+registerRoute(
+  ({ url }) => url.hostname === 'fakestoreapi.com',
+  new NetworkFirst({
+    cacheName: 'apidata',
+    networkTimeoutSeconds: 5, // Optional: Failover to cache after 5s
+    plugins: [
+      new ExpirationPlugin({
+        maxAgeSeconds: 60 * 10, // Cache for 10 minutes
+        maxEntries: 50 // Store up to 50 items
+      }),
+    ],
+  })
+);
+
+registerRoute(
+  // Add in any other file extensions or routing criteria as needed.
+  ({ url }) => /\.(jpg)$/i.test(url.pathname), // Customize this strategy as needed, e.g., by changing to CacheFirst.
+  new StaleWhileRevalidate({
+    cacheName: 'apiimage',
+    plugins: [
+      new ExpirationPlugin({
+        maxEntries: 30 // Store up to 50 items
+      }),
+    ],
+  })
+);
+
 
 
 // This allows the web app to trigger skipWaiting via

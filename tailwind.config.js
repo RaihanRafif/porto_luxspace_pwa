@@ -1,9 +1,7 @@
 const colors = require("tailwindcss/colors");
 
 module.exports = {
-  content: [
-    "./**/*.html", 
-    "./**/*.js"],
+  content: ["./**/*.html", "./**/*.js"],  
   presets: [],
   darkMode: 'media', // or 'media' or 'class'
   theme: {
@@ -277,7 +275,20 @@ module.exports = {
     },
     fontFamily: {
       sans: [
-        '"Josefin Sans"',
+        "ui-sans-serif",
+        "system-ui",
+        "-apple-system",
+        "BlinkMacSystemFont",
+        '"Segoe UI"',
+        "Roboto",
+        '"Helvetica Neue"',
+        "Arial",
+        '"Noto Sans"',
+        "sans-serif",
+        '"Apple Color Emoji"',
+        '"Segoe UI Emoji"',
+        '"Segoe UI Symbol"',
+        '"Noto Color Emoji"',
       ],
       serif: [
         "ui-serif",

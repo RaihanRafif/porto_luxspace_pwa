@@ -6,9 +6,15 @@ import Arrived from './components/Arrived';
 import Client from './components/Client';
 import AsideMenu from './components/AsideMenu';
 import Footer from './components/Footer';
+import Offline from './components/Offline';
 
 function App() {
   const [items, setItems] = useState([]);
+  const [offlineStatus, setOfflineStatus] = useState(!navigator.onLine)
+
+  function handleOfflineStatus() {
+    setOfflineStatus(!navigator.onLine)
+  }
 
   useEffect(() => {
     const fetchItems = async () => {
@@ -16,16 +22,33 @@ function App() {
         const response = await fetch('https://fakestoreapi.com/products');
         const data = await response.json();
         setItems(data); // Menyimpan data ke dalam state
+
+        const script = document.createElement("script")
+        script.src = '/carousel.js'
+        script.sync = false
+        document.body.appendChild(script)
       } catch (error) {
         console.error("Error fetching items:", error);
       }
     };
 
     fetchItems(); // Memanggil fungsi async di dalam useEffect
-  }, []);
+
+
+    handleOfflineStatus()
+    window.addEventListener('online', handleOfflineStatus)
+    window.addEventListener('offline', handleOfflineStatus)
+
+    return function () {
+      window.addEventListener('online', handleOfflineStatus)
+      window.addEventListener('offline', handleOfflineStatus)
+    }
+
+  }, [offlineStatus]);
 
   return (
     <>
+      {offlineStatus && <Offline />}
       <Header />
       <Hero />
       <Browse />

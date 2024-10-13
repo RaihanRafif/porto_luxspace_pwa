@@ -7,10 +7,12 @@ import Client from './components/Client';
 import AsideMenu from './components/AsideMenu';
 import Footer from './components/Footer';
 import Offline from './components/Offline';
+import SplashScreen from './pages/SplashScreen';
 
 function App() {
   const [items, setItems] = useState([]);
   const [offlineStatus, setOfflineStatus] = useState(!navigator.onLine)
+  const [isLoading, setIsLoading] = useState(true)
 
   function handleOfflineStatus() {
     setOfflineStatus(!navigator.onLine)
@@ -46,16 +48,26 @@ function App() {
 
   }, [offlineStatus]);
 
+
+  setTimeout(function () {
+    setIsLoading(false)
+  }, 1500)
+
   return (
     <>
-      {offlineStatus && <Offline />}
-      <Header />
-      <Hero />
-      <Browse />
-      <Arrived items={items} /> {/* Mengoper data items ke komponen Arrived */}
-      <Client />
-      <AsideMenu />
-      <Footer />
+      {isLoading ?
+        <SplashScreen /> :
+        <>
+          {offlineStatus && <Offline />}
+          <Header />
+          <Hero />
+          <Browse />
+          <Arrived items={items} /> {/* Mengoper data items ke komponen Arrived */}
+          <Client />
+          <AsideMenu />
+          <Footer />
+        </>}
+
     </>
   );
 }

@@ -1,6 +1,6 @@
-const carouselId = document.getElementById("carousel");
-const carouselItems = carouselId?.getElementsByClassName("flex")[0];
-const carouselContainer = carouselId?.getElementsByClassName("container")[0];
+var carouselId = document.getElementById("carousel");
+var carouselItems = carouselId?.getElementsByClassName("flex")[0];
+var carouselContainer = carouselId?.getElementsByClassName("container")[0];
 
 function carousel_calc_offset(e) {
   const carouselOffset = carouselContainer.getBoundingClientRect().left;

@@ -74,7 +74,7 @@ registerRoute((url) => url.origin === 'http://fonts.googleapis.com' || url.origi
 )
 
 registerRoute(
-  ({ url }) => url.hostname === 'fakestoreapi.com',
+  ({ url }) => url.hostname === 'dummyjson.com',
   new NetworkFirst({
     cacheName: 'apidata',
     networkTimeoutSeconds: 5, // Optional: Failover to cache after 5s
@@ -111,3 +111,11 @@ self.addEventListener('message', (event) => {
 });
 
 // Any other custom service worker logic can go here.
+self.addEventListener('push', function (event) {
+  event.waitUntil(
+    self.registration.showNotification("LuxSpace", {
+      icon: './icon-120.png',
+      body: event.data.text()
+    })
+  )
+})

@@ -1,8 +1,8 @@
 function Offline() {
     return (
-        <div class="bg-yellow-50 border-1-4 border-yellow-400 p-4">
-            <div class="flex">
-                <div class="flex-shrink-0">
+        <div className="bg-yellow-50 border-1-4 border-yellow-400 p-4">
+            <div className="flex">
+                <div className="flex-shrink-0">
                     <img
                         src="/alert.png"
                         alt="alert"

@@ -1,13 +1,12 @@
-function ArrivedItem({ item }) {
-    console.log(item);
+import { Link } from "react-router-dom";
 
+function ArrivedItem({ item }) {
     function formatPrice(number) {
         return new Intl.NumberFormat('id-ID', {
             style: 'currency',
             currency: 'IDR'
         }).format(number);
     }
-    
 
     return (
         <div className="px-4 relative card group" key={item.id}>
@@ -40,16 +39,23 @@ function ArrivedItem({ item }) {
                     </div>
                 </div>
                 <img
-                    src={item.image}
+                    src={item.images.length>1?item.images[0]:item.images}
                     alt=""
                     className="w-full h-full object-cover object-center"
                 />
             </div>
             <h5 className="text-lg font-semibold mt-4">{item.title}</h5>
             <span className="">{formatPrice(item.price)}</span>
-            <a href="details.html" className="stretched-link">
-                {/* <!-- fake children --> */}
-            </a>
+            <Link
+                to={{
+                    pathname: `/details/${item.id}`,
+                    // Passing item as state
+                }}
+
+                state={{ some: item }}
+
+                className="stretched-link"
+            />
         </div>
     )
 }
